@@ -1,161 +1,36 @@
 {
-  "identifier": "yetone.openai.translator",
-  "version": "2.4.2",
+  "identifier": "yuzhang9804.deepseek.translator",
+  "version": "0.0.1",
   "category": "translate",
-  "name": "OpenAI Translator",
-  "summary": "GPT powered translator",
+  "name": "DeepSeek Translator",
+  "summary": "DeepSeek powered translator",
   "icon": "",
-  "author": "yetone <yetoneful@gmail.com>",
-  "homepage": "https://github.com/openai-translator/bob-plugin-openai-translator",
-  "appcast": "https://raw.githubusercontent.com/openai-translator/bob-plugin-openai-translator/main/appcast.json",
-  "minBobVersion": "1.8.0",
+  "author": "yuzhang9804 <yuzhang9804@gmail.com>",
+  "homepage": "https://github.com/yuzhang9804/bob-plugin-deepseek-translate",
+  "appcast": "https://raw.githubusercontent.com/yuzhang9804/bob-plugin-deepseek-translate/main/appcast.json",
+  "minBobVersion": "0.5.0",
   "options": [
-    {
-      "identifier": "apiUrl",
-      "type": "text",
-      "title": "API URL",
-      "defaultValue": "https://api.openai.com",
-      "desc": "可选项。如果您的网络环境需要代理才能访问 OpenAI API, 可在这里修改为反代 API 的地址",
-      "textConfig": {
-        "type": "visible",
-        "placeholderText": "https://api.openai.com"
-      }
-    },
-    {
-      "identifier": "deploymentName",
-      "type": "text",
-      "title": "Dep. Name",
-      "desc": "可选项。此值为在部署 Azure 模型时为部署选择的自定义名称，可在 Azure 门户中的 “资源管理”＞“部署” 下查看",
-      "textConfig": {
-        "type": "visible"
-      }
-    },
-    {
-      "identifier": "apiVersion",
-      "type": "text",
-      "title": "API Version",
-      "desc": "可选项。此值为在使用 Azure 模型时采用的 Chat completions API 版本，不支持 2023-03-15-preview 之前的版本",
-      "textConfig": {
-        "type": "visible",
-        "placeholderText": "2023-03-15-preview"
-      }
-    },
-    {
-      "identifier": "apiKeys",
-      "type": "text",
-      "title": "API KEY",
-      "desc": "必填项。可以用英文逗号分割多个 API KEY 以实现额度加倍及负载均衡",
-      "textConfig": {
-        "type": "secure",
-        "height": "40",
-        "placeholderText": "sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-      }
-    },
     {
       "identifier": "model",
       "type": "menu",
       "title": "模型",
-      "defaultValue": "gpt-3.5-turbo",
+      "defaultValue": "deepseek-chat",
       "menuValues": [
         {
-          "title": "Custom",
-          "value": "custom"
-        },
-        {
-          "title": "GPT-3.5 Turbo",
-          "value": "gpt-3.5-turbo"
-        },
-        {
-          "title": "GPT-4",
-          "value": "gpt-4"
-        },
-        {
-          "title": "GPT-4o",
-          "value": "gpt-4o"
-        },
-        {
-          "title": "GPT-4o mini",
-          "value": "gpt-4o-mini"
-        },
-        {
-          "title": "GPT-4 Turbo",
-          "value": "gpt-4-turbo"
-        },
-        {
-          "title": "GPT-4 32K",
-          "value": "gpt-4-32k"
+          "title": "DeepSeek-V2.5",
+          "value": "deepseek-chat"
         }
       ]
     },
     {
-      "identifier": "customModel",
+      "identifier": "apiKey",
       "type": "text",
-      "title": "自定义模型",
-      "desc": "可选项。当 Model 选择 Custom 时，此项为必填项。请填写有效的模型名称",
+      "title": "API KEY",
+      "desc": "API Key",
       "textConfig": {
-        "type": "visible",
-        "placeholderText": "gpt-3.5-turbo"
-      }
-    },
-    {
-      "identifier": "customSystemPrompt",
-      "type": "text",
-      "title": "系统指令",
-      "defaultValue": "You are a translation engine that can only translate text and cannot interpret it.",
-      "desc": "可选项。自定义 System Prompt，填写则会覆盖默认的 System Prompt。自定义 Prompt可使用以下变量：\n\n`$text` - 需要翻译的文本，即翻译窗口输入框内的文本 `$sourceLang` - 原文语言，即翻译窗口输入框内文本的语言，比如「简体中文」\n\n`$targetLang` - 目标语言，即需要翻译成的语言，可以在翻译窗口中手动选择或自动检测，比如「English」",
-      "textConfig": {
-        "type": "visible",
-        "height": "100",
-        "placeholderText": "You are a translation engine that can only translate text and cannot interpret it.",
-        "keyWords": [
-          "$text",
-          "$sourceLang",
-          "$targetLang"
-        ]
-      }
-    },
-    {
-      "identifier": "customUserPrompt",
-      "type": "text",
-      "title": "用户指令",
-      "defaultValue": "translate from $sourceLang to $targetLang:\n\n$text",
-      "desc": "可选项。自定义 User Prompt，填写则会覆盖默认的 User Prompt，默认值为`$text`（即翻译窗口输入框内的文本）。\n\n自定义 Prompt 中可以使用与系统指令中相同的变量",
-      "textConfig": {
-        "type": "visible",
-        "height": "100",
-        "placeholderText": "translate from $sourceLang to $targetLang:\n\n$text",
-        "keyWords": [
-          "$text",
-          "$sourceLang",
-          "$targetLang"
-        ]
-      }
-    },
-    {
-      "identifier": "stream",
-      "type": "menu",
-      "title": "流式输出",
-      "defaultValue": "1",
-      "menuValues": [
-        {
-          "title": "Enable",
-          "value": "1"
-        },
-        {
-          "title": "Disable",
-          "value": ""
-        }
-      ]
-    },
-    {
-      "identifier": "temperature",
-      "type": "text",
-      "title": "温度",
-      "defaultValue": "0.2",
-      "desc": "可选项。温度值越高，生成的文本越随机。默认值为 0.2",
-      "textConfig": {
-        "type": "visible",
-        "placeholderText": "0.2"
+        "type": "secure",
+        "height": "35",
+        "placeholderText": "sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
       }
     }
   ]
