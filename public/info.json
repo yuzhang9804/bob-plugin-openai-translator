@@ -1,0 +1,32 @@
+{
+  "identifier": "yuzhang.deepseek.translator",
+  "version": "0.0.1",
+  "category": "translate",
+  "name": "DeepSeek Translator",
+  "summary": "GPT powered translator",
+  "icon": "",
+  "author": "yuzhang9804@gmail.com",
+  "homepage": "https://github.com/deepseek-ai/bob-plugin-deepseek-translator",
+  "appcast": "https://raw.githubusercontent.com/deepseek-ai/bob-plugin-deepseek-translator/main/appcast.json",
+  "minBobVersion": "0.5.0",
+  "options": [
+    {
+      "identifier": "apiKeys",
+      "type": "text",
+      "title": "API KEY",
+      "desc": "必填项。可以用英文逗号分割多个 API KEY 以实现额度加倍及负载均衡"
+    },
+    {
+      "identifier": "model",
+      "type": "menu",
+      "title": "模型",
+      "defaultValue": "deepseek-chat",
+      "menuValues": [
+        {
+          "title": "deepseek-chat",
+          "value": "deepseek-chat"
+        }
+      ]
+    }
+  ]
+}
