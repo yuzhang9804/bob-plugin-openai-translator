@@ -51,6 +51,11 @@ jobs:
         run: |
           node scripts/updateAppcast.mjs ${{ steps.get_version.outputs.version-without-v }} '${{ steps.tag.outputs.message }}'
 
+      - name: Checkout maintenance branch
+        run: |
+          git fetch origin maintenance
+          git checkout -b maintenance origin/maintenance
+
       - name: Commit files to maintenance branch
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
