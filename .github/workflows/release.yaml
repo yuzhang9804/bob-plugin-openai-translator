@@ -51,12 +51,18 @@ jobs:
         run: |
           node scripts/updateAppcast.mjs ${{ steps.get_version.outputs.version-without-v }} '${{ steps.tag.outputs.message }}'
 
+      - name: Checkout maintenance branch
+        run: |
+          git fetch origin maintenance
+          git checkout -b maintenance origin/maintenance
+
       - name: Commit files to maintenance branch
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         run: |
           git config --global user.name 'yuzhang9804'
           git config --global user.email 'yuzhang9804@gmail.com'
+          git pull origin maintenance
           git add appcast.json
           git commit -m 'chore: update appcast.json and info.json'
           git push https://yuzhang9804:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/yuzhang9804/bob-plugin-deepSeek-translator.git HEAD:refs/heads/maintenance
