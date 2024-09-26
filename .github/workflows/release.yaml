@@ -51,46 +51,14 @@ jobs:
         run: |
           node scripts/updateAppcast.mjs ${{ steps.get_version.outputs.version-without-v }} '${{ steps.tag.outputs.message }}'
 
-      - name: Stash changes
-        run: |
-          git stash
-
-      - name: Checkout community branch
-        run: |
-          git fetch origin community
-          git checkout -b community origin/community
-
-      - name: Apply stashed changes
-        run: |
-          git stash pop
-
-      - name: Resolve merge conflicts
-        if: failure()
-        run: |
-          git merge --abort
-          git checkout --theirs appcast.json
-          git add appcast.json
-          git commit -m 'fix: resolve merge conflict in appcast.json'
-
-      - name: Commit files to maintenance branch
+      - name: Commit changes to community branch
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         run: |
           git config --global user.name 'yuzhang9804'
           git config --global user.email 'yuzhang9804@gmail.com'
-          git pull origin maintenance
-          git add appcast.json
-          git commit -m 'chore: update appcast.json and info.json'
-          git push https://yuzhang9804:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/yuzhang9804/bob-plugin-deepSeek-translator.git HEAD:refs/heads/maintenance
-
-      - name: Checkout community branch
-        run: |
           git fetch origin community
-          git checkout community
-
-      - name: Copy appcast.json to community branch
-        run: |
-          git checkout community -- appcast.json
+          git checkout -b community origin/community
           git add appcast.json
           git commit -m 'chore: update appcast.json'
           git push https://yuzhang9804:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/yuzhang9804/bob-plugin-deepSeek-translator.git HEAD:community
