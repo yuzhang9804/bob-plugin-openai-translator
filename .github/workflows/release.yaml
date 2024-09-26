@@ -49,7 +49,7 @@ jobs:
 
       - name: Update appcast.json
         run: |
-          node scripts/updateAppcast.js ${{ steps.get_version.outputs.version-without-v }} '${{ steps.tag.outputs.message }}'
+          node scripts/updateAppcast.mjs ${{ steps.get_version.outputs.version-without-v }} '${{ steps.tag.outputs.message }}'
 
       - name: Commit files to maintenance branch
         run: |
