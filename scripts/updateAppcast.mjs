@@ -1,6 +1,10 @@
 import fs from 'node:fs'
 import crypto from 'node:crypto'
 import path from 'node:path'
+import { fileURLToPath } from 'url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 const infoPath = path.join(__dirname, '../public/info.json')
 const info = JSON.parse(fs.readFileSync(infoPath, 'utf8'))
