@@ -2,6 +2,12 @@ import fs from 'node:fs'
 import crypto from 'node:crypto'
 import path from 'node:path'
 
+const infoPath = path.join(__dirname, '../public/info.json')
+const info = JSON.parse(fs.readFileSync(infoPath, 'utf8'))
+const oldVersion = info.version
+
+console.log(`Old version is ${oldVersion}`)
+
 function updateAppcast(version, desc) {
   const releaseFile = path.join('dist', `deepseek-translator-${version}.bobplugin`)
   if (!fs.existsSync(releaseFile)) {
