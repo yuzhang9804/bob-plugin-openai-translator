@@ -24,7 +24,7 @@ jobs:
 
       - name: Get version
         id: get_version
-        uses: battila7/get-version-action@v3
+        uses: battila7/get-version-action@v2
 
       - name: Get tag message
         id: tag
