@@ -56,7 +56,7 @@ jobs:
           git config --global user.name 'yuzhang9804'
           git config --global user.email 'yuzhang9804@gmail.com'
           git commit -am 'chore: update appcast.json and info.json'
-          git push origin HEAD:maintenance
+          git push origin HEAD:refs/heads/maintenance
 
       - name: Checkout community branch
         run: |
