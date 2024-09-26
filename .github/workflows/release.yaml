@@ -11,7 +11,6 @@ jobs:
     permissions:
       contents: write
       packages: write
-      workflows: write
 
     steps:
       - uses: actions/checkout@v3
@@ -53,11 +52,13 @@ jobs:
           node scripts/updateAppcast.mjs ${{ steps.get_version.outputs.version-without-v }} '${{ steps.tag.outputs.message }}'
 
       - name: Commit files to maintenance branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         run: |
           git config --global user.name 'yuzhang9804'
           git config --global user.email 'yuzhang9804@gmail.com'
           git commit -am 'chore: update appcast.json and info.json'
-          git push origin HEAD:refs/heads/maintenance
+          git push https://yuzhang9804:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/yuzhang9804/bob-plugin-deepSeek-translator.git HEAD:refs/heads/maintenance
 
       - name: Checkout community branch
         run: |
@@ -69,7 +70,7 @@ jobs:
           git checkout maintenance -- appcast.json
           git add appcast.json
           git commit -m 'chore: update appcast.json'
-          git push origin HEAD:community
+          git push https://yuzhang9804:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/yuzhang9804/bob-plugin-deepSeek-translator.git HEAD:community
 
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
