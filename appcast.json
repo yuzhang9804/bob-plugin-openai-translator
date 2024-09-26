@@ -1,19 +1,4 @@
 {
   "identifier": "yuzhang.deepseek.translator",
-  "versions": [
-    {
-      "version": "0.0.1",
-      "desc": "chore: update release",
-      "sha256": "ed723c32fb2123b2331d925179b54fed9d8439a2f5167781cac7275019553e41",
-      "url": "https://github.com/yuzhang9804/bob-plugin-deepSeek-translator/releases/download/v0.0.1/deepseek-translator-0.0.1.bobplugin",
-      "minBobVersion": "1.8.0"
-    },
-    {
-      "version": "0.0.1",
-      "desc": "https://github.com/yuzhang9804/bob-plugin-deepSeek-translator/releases/tag/v0.0.1",
-      "sha256": "979a3db1a4ebde0475a79b267f8d05f7f940f38325daabdf0cecb73030102ca6",
-      "url": "https://github.com/yuzhang9804/bob-plugin-deepSeek-translator/releases/download/v0.0.1/deepseek-translator-0.0.1.bobplugin",
-      "minBobVersion": "0.5.0"
-    }
-  ]
+  "versions": []
 }

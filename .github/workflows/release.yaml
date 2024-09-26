@@ -42,8 +42,14 @@ jobs:
           OLD_VERSION=$(grep '"version":' public/info.json | awk -F\" '{print $4}')
           sed -i "s/${OLD_VERSION}/${{ steps.get_version.outputs.version-without-v }}/" public/info.json
 
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
       - name: Package plugin
-        run: mkdir -p release && zip -j -r release/deepseek-translator-${{ steps.get_version.outputs.version-without-v }}.bobplugin ./src/*
+        run: mkdir -p release && zip -j -r release/deepseek-translator-${{ steps.get_version.outputs.version-without-v }}.bobplugin ./dist/*
 
       - run: git checkout -- src/
 
