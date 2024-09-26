@@ -26,7 +26,7 @@ function updateAppcast(version, desc) {
     desc: desc,
     sha256: fileHash,
     url: `https://github.com/yuzhang9804/bob-plugin-deepSeek-translator/releases/download/v${version}/${path.basename(releaseFile)}`,
-    minBobVersion: '1.8.0',
+    minBobVersion: '0.5.0',
   }
 
   const appcastFile = path.join(__dirname, '../appcast.json')
