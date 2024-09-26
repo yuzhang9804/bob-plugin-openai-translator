@@ -55,10 +55,10 @@ jobs:
         run: |
           git stash
 
-      - name: Checkout maintenance branch
+      - name: Checkout community branch
         run: |
-          git fetch origin maintenance
-          git checkout -b maintenance origin/maintenance
+          git fetch origin community
+          git checkout -b community origin/community
 
       - name: Apply stashed changes
         run: |
@@ -90,7 +90,7 @@ jobs:
 
       - name: Copy appcast.json to community branch
         run: |
-          git checkout maintenance -- appcast.json
+          git checkout community -- appcast.json
           git add appcast.json
           git commit -m 'chore: update appcast.json'
           git push https://yuzhang9804:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/yuzhang9804/bob-plugin-deepSeek-translator.git HEAD:community
