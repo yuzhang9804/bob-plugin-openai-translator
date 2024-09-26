@@ -13,7 +13,7 @@ const oldVersion = info.version
 console.log(`Old version is ${oldVersion}`)
 
 function updateAppcast(version, desc) {
-  const releaseFile = path.join('dist', `deepseek-translator-${version}.bobplugin`)
+  const releaseFile = path.join(__dirname, '../release', `deepseek-translator-${version}.bobplugin`)
   if (!fs.existsSync(releaseFile)) {
     throw new Error('Release file not exist')
   }
@@ -29,7 +29,7 @@ function updateAppcast(version, desc) {
     minBobVersion: '1.8.0',
   }
 
-  const appcastFile = 'appcast.json'
+  const appcastFile = path.join(__dirname, '../appcast.json')
   let appcast
 
   if (fs.existsSync(appcastFile)) {

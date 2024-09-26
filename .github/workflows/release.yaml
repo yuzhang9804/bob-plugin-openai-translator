@@ -43,7 +43,7 @@ jobs:
           sed -i "s/${OLD_VERSION}/${{ steps.get_version.outputs.version-without-v }}/" public/info.json
 
       - name: Package plugin
-        run: mkdir release && zip -j -r release/deepseek-translator-${{ steps.get_version.outputs.version-without-v }}.bobplugin ./src/*
+        run: mkdir -p release && zip -j -r release/deepseek-translator-${{ steps.get_version.outputs.version-without-v }}.bobplugin ./src/*
 
       - run: git checkout -- src/
 
