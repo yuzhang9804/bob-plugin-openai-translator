@@ -64,6 +64,14 @@ jobs:
         run: |
           git stash pop
 
+      - name: Resolve merge conflicts
+        if: failure()
+        run: |
+          git merge --abort
+          git checkout --theirs appcast.json
+          git add appcast.json
+          git commit -m 'fix: resolve merge conflict in appcast.json'
+
       - name: Commit files to maintenance branch
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
