@@ -2,8 +2,7 @@ name: Release
 
 on:
   push:
-    tags: [ v\d+\.\d+\.\d+ ]
-
+    tags: [v\d+\.\d+\.\d+]
 
 jobs:
   release:
@@ -17,6 +16,11 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
 
       - name: Get version
         id: get_version
@@ -34,33 +38,40 @@ jobs:
           sed -i "s/$OLD_VERSION/${{ steps.get_version.outputs.version-without-v }}/" src/info.json
 
       - name: Package plugin
-        run: mkdir release && zip -j -r release/openai-translator-${{ steps.get_version.outputs.version-without-v }}.bobplugin ./src/*
+        run: mkdir release && zip -j -r release/deepseek-translator-${{ steps.get_version.outputs.version-without-v }}.bobplugin ./src/*
 
       - run: git checkout -- src/
 
       - name: Update appcast.json
         run: |
-          python3 scripts/update_release.py ${{ steps.get_version.outputs.version-without-v }} '${{ steps.tag.outputs.message }}'
-      
-      - name: Commit files
-        run: |
-          git config --global user.name 'Bryan Lee'
-          git config --global user.email '38807139+liby@users.noreply.github.com'
-          git commit -am 'chore: update appcast.json and info.json'
+          node scripts/updateAppcast.js ${{ steps.get_version.outputs.version-without-v }} '${{ steps.tag.outputs.message }}'
 
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: 'maintenance'
+      - name: Commit files to maintenance branch
+        run: |
+          git config --global user.name 'yuzhang9804'
+          git config --global user.email 'yuzhang9804@gmail.com'
+          git commit -am 'chore: update appcast.json and info.json'
+          git push origin HEAD:maintenance
+
+      - name: Checkout community branch
+        run: |
+          git fetch origin community
+          git checkout community
+
+      - name: Copy appcast.json to community branch
+        run: |
+          git checkout maintenance -- appcast.json
+          git add appcast.json
+          git commit -m 'chore: update appcast.json'
+          git push origin HEAD:community
 
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
           release_name: ${{ steps.get_version.outputs.version }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: release/openai-translator-${{ steps.get_version.outputs.version-without-v }}.bobplugin
-          asset_name: openai-translator-${{ steps.get_version.outputs.version-without-v }}.bobplugin
+          file: release/deepseek-translator-${{ steps.get_version.outputs.version-without-v }}.bobplugin
+          asset_name: deepseek-translator-${{ steps.get_version.outputs.version-without-v }}.bobplugin
           tag: ${{ github.ref }}
           overwrite: true
           body: ${{ steps.tag.outputs.message }}
