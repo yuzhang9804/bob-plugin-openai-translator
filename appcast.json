@@ -1,4 +1,12 @@
 {
   "identifier": "yuzhang.deepseek.translator",
-  "versions": []
+  "versions": [
+    {
+      "version": "0.0.1",
+      "desc": "feat: update plugin",
+      "sha256": "511ebde57c6fb61ad20c72c8ee27e7688f2529918ced1f0792cb2f594accb895",
+      "url": "https://github.com/yuzhang9804/bob-plugin-deepSeek-translator/releases/download/v0.0.1/deepseek-translator-0.0.1.bobplugin",
+      "minBobVersion": "1.8.0"
+    }
+  ]
 }
